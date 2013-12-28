@@ -221,7 +221,7 @@ div.content {
     padding:51px 0 76px 0; 
 }
 
-#js-photo-upload {
+.photo-upload {
     position:absolute;
     z-index:2;
     top:0;
@@ -245,7 +245,7 @@ div.content {
     margin: 5px;
 }
 
-#calendar tr {
+.calendar tr {
     height: 50px;
     vertical-align: middle;
     border-top: 1px black solid;
@@ -305,4 +305,10 @@ div.content {
 #footer-container {
     border-top: 1px solid #666; 
     bottom: 0;
+}
+
+.calendar img {
+    margin: 2px 8px;
+    max-height: 50px;
+    width: auto;
 }

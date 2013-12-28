@@ -40,7 +40,7 @@
         setThumbImage: function(url, filename) {
             var $img = $('<img src="'+url+'">');
             var hour = this.getHourFromFileName(filename);
-            $('#calendar .h'+hour).append($img);
+            $('.calendar .h'+hour).append($img);
         },
         setLastUploadThumb: function() {
             if(!this.lastUpload) {
@@ -89,13 +89,13 @@
     
     if (client.isAuthenticated()) {
         $('.js-connect-btn').hide();
-        var $fileUploader = $('#js-photo-upload');
+        var $fileUploader = $('.js-photo-upload');
         
-        $('#js-photo-upload-btn').on('click', function(e) {
+        $('.js-photo-upload-btn').on('click', function(e) {
             $fileUploader.trigger('click');
         });
         
-        $('#js-photo-upload').on('change', function(e) {
+        $('.js-photo-upload').on('change', function(e) {
             var imgName = this.value;
             utilities.uploadImage('food', e.target.files[0]);
         });
