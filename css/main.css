@@ -246,7 +246,7 @@ div.content {
 }
 
 .calendar tr {
-    height: 50px;
+    height: 30px;
     vertical-align: middle;
     border-top: 1px black solid;
 }
