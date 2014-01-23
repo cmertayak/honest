@@ -260,8 +260,6 @@
         });
         
         $('.content').on('click', '.js-save-note', function(e) {
-            console.log('hee');
-            
             utilities.fetchNote(notesTable, 
                                 states.displayType, 
                                 $.extend(states.viewDate, 
