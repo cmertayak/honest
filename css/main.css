@@ -21,6 +21,7 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    background-image: url(../img/pattern-58nd.png);
 }
 
 a {
@@ -216,9 +217,9 @@ textarea[contenteditable] {
 }
 
 div.content {
-    margin:0 auto; 
-    overflow:auto; 
-    padding:51px 0 76px 0; 
+    margin:0 auto;
+    overflow:auto;
+    padding:51px 0 76px 0;
 }
 
 .photo-upload {
@@ -245,33 +246,32 @@ div.content {
     margin: 5px;
 }
 
-.calendar tr {
+.timeline tr {
     height: 30px;
     vertical-align: middle;
-    border-top: 1px black solid;
+    border-top: 1px #CCC solid;
 }
 
-#calendar td {
+.timeline td {
     min-width: 50px;
 }
 
-#calendar td.image {
+.timeline td.image {
     width: 100%;
 }
 
-#header-container { 
+#header-container {
     top: 0;
 }
 
 #header {
-    margin:0 auto; 
+    margin:0 auto;
     padding: 10px;
 }
 
 
-
 #footer {
-    margin:0 auto; 
+    margin:0 auto;
     padding: 10px;
 }
 
@@ -279,7 +279,9 @@ div.content {
     text-align:center;
     font-weight: bold;
     font-size: 20px;
-    border: 1px solid black;
+    border: 1px solid #AAA;
+    border-radius: 4px;
+    color: #3A3A3A;
 }
 .top > * {
     text-align: center;
@@ -295,20 +297,71 @@ div.content {
 }
 
 .fixed-container {
-    background:#eee; 
-    height:auto; 
-    left:0; 
-    position:fixed; 
-    width:100%; 
+    background:#eee;
+    height:auto;
+    left:0;
+    position:fixed;
+    width:100%;
 }
 
 #footer-container {
-    border-top: 1px solid #666; 
+    border-top: 1px solid #CCC;
     bottom: 0;
 }
 
-.calendar img {
+.timeline img {
     margin: 2px 8px;
     max-height: 50px;
     width: auto;
+}
+
+.original-image {
+    max-height: 250px;
+    max-width: 250px;
+}
+
+.btn-iterate {
+    height: 100px;
+}
+
+.image-view {
+    text-align: center;
+}
+
+
+
+.info-note {
+    resize: none;
+}
+
+.image-view-wrapper {
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #eee;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+}
+
+.close {
+/*
+    position: fixed;
+    right: 10%;
+*/
+    font-size: 30px;
+    margin-top: -10px;
+}
+
+.info {
+    float: left;
+    font-size: 12px;
+    margin: 10px;
+}
+
+.close-wrapper {
+    height: 22px;
+}
+
+.save-note {
+    margin-top: 10px;
 }

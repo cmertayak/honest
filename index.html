@@ -39,13 +39,10 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-
-        
-        <!-- Add your site or application content here -->
         
         <div id="header-container" class="fixed-container">
             <div id="header">
-                <div class="date"></div>
+                <div class="date js-date"></div>
             </div>
         </div>
         
@@ -58,9 +55,9 @@
                         <button type="button" class="btn btn-default js-connect-btn">
                             Connect with Dropbox
                         </button>
-                        <div id="about-to-eat">About to eat something?</div>
+                        <div id="about-to-eat">About to eat/drink something?</div>
                         <a class='btn btn-primary js-photo-upload-btn' href='javascript:;'>
-                            Take Picture of Your Food
+                            Pic Your Food/Drink
                         </a>
                     </div>
                 </div>
@@ -68,86 +65,61 @@
         </div>
         
         <div class="content">
-            
-            <table class="calendar" id="calendar">
-                <tr>
-                    <td>00:00</td><td class="image h0"></td>
-                </tr>
-                <tr>
-                    <td>01:00</td><td class="image h1"></td>
-                </tr>
-                <tr>
-                    <td>02:00</td><td class="image h2"></td>
-                </tr>
-                <tr>
-                    <td>03:00</td><td class="image h3"></td>
-                </tr>
-                <tr>
-                    <td>04:00</td><td class="image h4"></td>
-                </tr>
-                <tr>
-                    <td>05:00</td><td class="image h5"></td>
-                </tr>
-                <tr>
-                    <td>06:00</td><td class="image h6"></td>
-                </tr>
-                <tr>
-                    <td>07:00</td><td class="image h7"></td>
-                </tr>
-                <tr>
-                    <td>08:00</td><td class="image h8"></td>
-                </tr>
-                <tr>
-                    <td>09:00</td><td class="image h9"></td>
-                </tr>
-                <tr>
-                    <td>10:00</td><td class="image h10"></td>
-                </tr>
-                <tr>
-                    <td>11:00</td><td class="image h11"></td>
-                </tr>
-                <tr>
-                    <td>12:00</td><td class="image h12"></td>
-                </tr>
-                <tr>
-                    <td>13:00</td><td class="image h13"></td>
-                </tr>
-                <tr>
-                    <td>14:00</td><td class="image h14"></td>
-                </tr>
-                <tr>
-                    <td>15:00</td><td class="image h15"></td>
-                </tr>
-                <tr>
-                    <td>16:00</td><td class="image h16"></td>
-                </tr>
-                <tr>
-                    <td>17:00</td><td class="image h17"></td>
-                </tr>
-                <tr>
-                    <td>18:00</td><td class="image h18"></td>
-                </tr>
-                <tr>
-                    <td>19:00</td><td class="image h19"></td>
-                </tr>
-                <tr>
-                    <td>20:00</td><td class="image h20"></td>
-                </tr>
-                <tr>
-                    <td>21:00</td><td class="image h21"></td>
-                </tr>
-                <tr>
-                    <td>22:00</td><td class="image h22"></td>
-                </tr>
-                <tr>
-                    <td>23:00</td><td class="image h23"></td>
-                </tr>
+            <table class="timeline js-timeline">
+                <tr><td>00:00</td><td class="image h0"></td></tr>
+                <tr><td>01:00</td><td class="image h1"></td></tr>
+                <tr><td>02:00</td><td class="image h2"></td></tr>
+                <tr><td>03:00</td><td class="image h3"></td></tr>
+                <tr><td>04:00</td><td class="image h4"></td></tr>
+                <tr><td>05:00</td><td class="image h5"></td></tr>
+                <tr><td>06:00</td><td class="image h6"></td></tr>
+                <tr><td>07:00</td><td class="image h7"></td></tr>
+                <tr><td>08:00</td><td class="image h8"></td></tr>
+                <tr><td>09:00</td><td class="image h9"></td></tr>
+                <tr><td>10:00</td><td class="image h10"></td></tr>
+                <tr><td>11:00</td><td class="image h11"></td></tr>
+                <tr><td>12:00</td><td class="image h12"></td></tr>
+                <tr><td>13:00</td><td class="image h13"></td></tr>
+                <tr><td>14:00</td><td class="image h14"></td></tr>
+                <tr><td>15:00</td><td class="image h15"></td></tr>
+                <tr><td>16:00</td><td class="image h16"></td></tr>
+                <tr><td>17:00</td><td class="image h17"></td></tr>
+                <tr><td>18:00</td><td class="image h18"></td></tr>
+                <tr><td>19:00</td><td class="image h19"></td></tr>
+                <tr><td>20:00</td><td class="image h20"></td></tr>
+                <tr><td>21:00</td><td class="image h21"></td></tr>
+                <tr><td>22:00</td><td class="image h22"></td></tr>
+                <tr><td>23:00</td><td class="image h23"></td></tr>
             </table>
+            
+            <div class="image-view-wrapper hidden">
+                <div class="close-wrapper">
+                    <button type="button" class="js-close close" aria-hidden="true">&times;</button>
+                </div>
+                <div class="image-view"></div>
+            </div>
         </div>
+        
+        <script id="tmpl-thumb" type="text/x-handlebars-template">
+            <img class="thumb" src="{{src}}" data-filename="{{filename}}">
+        </script>
+        
+        <script id="tmpl-original-image" type="text/x-handlebars-template">
+<!--            <button class="prev btn-iterate btn btn-default"><<</button>-->
+            <img class="original-image" src="{{src}}">
+<!--            <button class="next btn-iterate btn btn-default">>></button>-->
+            <div class="info-wrapper">
+                <div class="info">Time: {{time}}</div>
+                <textarea class="form-control info-note js-info-note" 
+                          placeholder="Write note to yourself"></textarea>
+                <btn class="btn btn-primary js-save-note save-note">Save Note</btn>
+            </div>
+        </script>
 
         <script src="js/vendor/zepto.min.js"></script>
         <script src="js/helper.js"></script>
         <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.2.1/handlebars.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
