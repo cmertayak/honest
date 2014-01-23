@@ -25,7 +25,8 @@
             viewMode: VIEW_MODE_TIMELINE,
             lastUpload: null,
             viewDate: {},
-            viewExtraData: {}
+            viewExtraData: {},
+            note: null
         },
         utilities = {
             _generateMainFolderName: function () {
@@ -37,7 +38,8 @@
                 return currentDate.getDate();
             },
             generateFullFolderPath: function () {
-                return this._generateMainFolderName() + '/' + this._generateSubFolderName();
+                return this._generateMainFolderName() + '/' 
+                        + this._generateSubFolderName();
             },
             generateFileName: function () {
                 var currentDate = new Date();
@@ -69,6 +71,17 @@
                 return arr[0];
             },
             
+            getTimeFromFilePath: function (filepath) {
+                var filename = this.getFileNameFromPath(filepath),
+                    arr;
+                arr = filename.split('.')[0].split('-');
+                return {
+                    hour: arr[0],
+                    minute: arr[1],
+                    second: arr[2]
+                };
+            },
+            
             getTimeStringFromFilePath: function (filepath) {
                 var filename = this.getFileNameFromPath(filepath),
                     arr;
@@ -76,10 +89,6 @@
                 arr = arr[0].split('-');
                 arr = arr.map($.proxy(this.addLeadingZeroForTwoDigits, this));
                 return arr.join(':');
-            },
-            
-            getDateTimeFromFilePath: function(filepath) {
-                debugger;
             },
             
             getFileNameFromPath: function (filepath) {
@@ -108,7 +117,12 @@
                     templates.originalImage({'src': bigImageSrc, 'time': time})
                 );
                 this.openImageView();
-                this.getDateTimeFromFilePath(filename);
+                states.viewExtraData['viewTime'] = this.getTimeFromFilePath(filename);
+                $('.js-info-note').val(this.fetchNote(
+                    notesTable, 
+                    states.displayType, 
+                    $.extend(states.viewDate, states.viewExtraData['viewTime'])
+                ));
             },
                 
             setLastUploadThumb: function () {
@@ -140,10 +154,15 @@
             
             setTodaysDate: function () {
                 var currentDate = new Date();
+                states.viewDate = {
+                    year: currentDate.getFullYear(),
+                    month: currentDate.getMonth() + 1,
+                    day: currentDate.getDate()
+                },
                 $('.js-date').text(
-                    this.addLeadingZeroForTwoDigits(currentDate.getMonth() + 1) + '/' +
-                        this.addLeadingZeroForTwoDigits(currentDate.getDate()) + '/' +
-                        currentDate.getFullYear()
+                    this.addLeadingZeroForTwoDigits(states.viewDate.month) + '/' +
+                        this.addLeadingZeroForTwoDigits(states.viewDate.day) + '/' +
+                        states.viewDate.year
                 );
             },
             
@@ -171,23 +190,41 @@
             type & time
             time is an object consisting of (year, month, day, hour, minute, second)
             */
-            fetchNote: function (type, time) {
-            },
-            
-            _writeNote: function (notesTable, type, time, note) {
-                notesTable.insert({
+            fetchNote: function (notesTable, type, time) {
+                var queryParams = {
                     'type': type,
                     year: time.year,
                     month: time.month,
                     day: time.day,
                     hour: time.hour,
                     minute: time.minute,
-                    second: time.second,
-                    'note': note
-                });
+                    second: time.second
+                };
+                
+                var notes = notesTable.query(queryParams);
+                
+                var noteTxt = "";
+                if(notes.length > 0) {
+                    states.note = notes[0];
+                    noteTxt = states.note.get('note');
+                } else {
+                    states.note = $.extend(queryParams, {note: noteTxt});
+                }
+                
+                return noteTxt;
             },
             
             writeNoteForCurrentImage: function (note) {
+                var date = states.viewDate,
+                    time = states.viewExtraData.viewTime;
+                
+                var noteObj = $.extend(states.note, {'note':note});
+                
+                if(typeof noteObj._datastore != 'undefined') {
+                    noteObj.update({'note':note});
+                } else {
+                    notesTable.insert(noteObj);
+                }
             }
         };
 
@@ -224,6 +261,13 @@
         
         $('.content').on('click', '.js-save-note', function(e) {
             console.log('hee');
+            
+            utilities.fetchNote(notesTable, 
+                                states.displayType, 
+                                $.extend(states.viewDate, 
+                                    states.viewExtraData['viewTime'])
+           );
+            
             utilities.writeNoteForCurrentImage($('.js-info-note').val());
         });
         
