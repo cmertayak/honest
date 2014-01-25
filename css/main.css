@@ -282,6 +282,7 @@ div.content {
     border: 1px solid #AAA;
     border-radius: 4px;
     color: #3A3A3A;
+    margin-left: 40px;
 }
 .top > * {
     text-align: center;
@@ -364,4 +365,14 @@ div.content {
 
 .save-note {
     margin-top: 10px;
+}
+
+.calendar {
+    font-size: 20px;
+    border: 1px solid #aaa;
+    width: 30px;
+    text-align: center;
+    border-radius: 4px;
+    float: left;
+    display:block;
 }

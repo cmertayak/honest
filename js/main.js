@@ -18,7 +18,8 @@
             imageViewWrapper: $('.image-view-wrapper'),
             imageView: $('.image-view'),
             closeBtn: $('.js-close'),
-            fileUploader: $('.js-photo-upload')
+            fileUploader: $('.js-photo-upload'),
+            calendar: $('.js-calendar')
         },
         states = {
             displayType: DISPLAY_TYPE_FOOD,
@@ -225,6 +226,10 @@
                 } else {
                     notesTable.insert(noteObj);
                 }
+            },
+            openCalendarView: function() {
+                // @todo 
+                console.log('open calendar view');
             }
         };
 
@@ -254,7 +259,7 @@
             $elements.fileUploader.trigger('click');
         });
 
-        $('.js-photo-upload').on('change', function (e) {
+        $elements.fileUploader.on('change', function (e) {
             var imgName = this.value;
             utilities.uploadImage(states.displayType, e.target.files[0]);
         });
@@ -267,6 +272,10 @@
            );
             
             utilities.writeNoteForCurrentImage($('.js-info-note').val());
+        });
+        
+        $elements.calendar.on('click', function(e) {
+            utilities.openCalendarView();
         });
         
         $elements.closeBtn.on('click', function (e) {
